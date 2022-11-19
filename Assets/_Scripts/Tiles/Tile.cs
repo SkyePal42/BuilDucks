@@ -7,9 +7,12 @@ public abstract class Tile : MonoBehaviour {
     [SerializeField] protected SpriteRenderer _renderer;
     [SerializeField] private GameObject _highlight;
     [SerializeField] private bool _isWalkable;
+    [SerializeField] private bool _isSwimmable;
 
     public BaseUnit OccupiedUnit;
-    public bool Walkable => _isWalkable && OccupiedUnit == null;
+    public BaseObject OccupiedObject;
+    public bool Walkable => _isWalkable && (OccupiedObject == null || OccupiedObject.walk);
+    public bool Swimmable => _isSwimmable && (OccupiedObject == null || OccupiedObject.swim);
 
 
     public virtual void Init(int x, int y)

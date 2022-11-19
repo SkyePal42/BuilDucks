@@ -31,18 +31,21 @@ public class GridManager : MonoBehaviour
         GenerateEntrances();
         GenerateFence();
 
+        int waterCount = 3;
+        bool water = false;
+
         for (int x = 1; x < _width - 1; x++)
         {
             for (int y = 1; y < _height - 1; y++)
             {
                 // water tile chance calculation
-                var randomTile = Random.value > 0.9 ? _waterTile : _grassTile;
-                if (randomTile != _waterTile)
-                {
-                    int connectedWater = 0;
-                    // Recursive search surrounding tile (4way) if water nearby. then add 1, check if water next to that
-                    // Maybe check for duplicates?
+                var randomTile = _grassTile;
 
+                if (waterCount > 0 && Random.value > 0.9)
+                {
+                    randomTile = _waterTile;
+                    water = true;
+                    waterCount -= 1;
                 }
 
                 var spawnedTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity);
