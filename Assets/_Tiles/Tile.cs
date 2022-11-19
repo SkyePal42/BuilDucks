@@ -37,10 +37,11 @@ public class Tile : MonoBehaviour {
 
         if (OccupiedObject == null && GameManager.Instance.selectedObject != null && GameManager.Instance.selectedObject.GetComponent<BaseObject>().CanPlace(this)) {
             // instantiate object, not sure how
-            var instance = OccupiedObject;
-            OccupiedObject = GameManager.Instance.selectedObject.GetComponent<BaseObject>();
+            Debug.Log("Hello??");
+            var instance = Instantiate(GameManager.Instance.selectedObject,transform);
+            //System.Console.WriteLine('Is this working')
+            OccupiedObject = instance.GetComponent<BaseObject>();
         }
-
     }
 
     public void SetAnimal(BaseAnimal animal) {
