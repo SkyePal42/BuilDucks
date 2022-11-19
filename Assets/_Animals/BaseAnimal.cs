@@ -12,43 +12,51 @@ public class BaseAnimal : MonoBehaviour {
         Tile destinationTile = GridManager.Instance.GetRandomPosition();
         Console.WriteLine(destinationTile);
         OccupiedTile = destinationTile;
+        return destinationTile.transform.position;
     }
-
-    private List<Tile> ShortestPath() {
+    private List<Vector2> ShortestPath() {
         //A* Algorithm path
         Vector2 start = Location;
         Vector2 finish = MoveRandom();
         Vector2 currentTile = start;
 
-        List openList = new List<>();
-        List closedList = new List<>();
+        List<Vector2> openList = new List<Vector2>();
+        List<Vector2> closedList = new List<Vector2>();
 
-        List RoutePath = new List<>();
+        List<Vector2> RoutePath = new List<Vector2>();
 
         //Start by adding original position to the open list
         openList.Add(start);
-        Vector2 parent = null;
+        Vector2 parent;
         while (RoutePath.Contains(finish) == false) { //RoutePath or closedlist?
              while (openList.Count > 0) {
             //get the square with the lowest F score: 
             //distance from finish + distance from start
-            var lowest = openList.Min(getLScore(Location, start, finish));
+            Vector2 lowest = openList[0];
+            foreach (Vector2 vector in openList) { //Could use a mapping function
+                double fval = GetScores(vector, start, finish)[2];
+                if (fval <= GetScores(lowest, start, finish)[2]) {
+                    lowest = vector;
+                }
+            }
+
             if (lowest == finish) {
                 break;
             } else {
                 closedList.Add(lowest);
-                Vector2[] neighbours = {Vector2.Add(currentTile, (1,0)), Vector2.Add(currentTile, (1,1)),Vector2.Add(locurrentTilewest, (0,1)),Vector2.Add(currentTile, (-1,0)),Vector2.Add(currentTile, (-1,-1)),Vector2.Add(currentTile, (0,-1))}; //Need to check the coordinates point to a real tile
-                foreach (Vector2 neighbour in neighbours){
-                    int[] fScores_current = GetScores(currentTile, start, finish);
+                Vector2[] adjacent_diffs = {new Vector2(1,0), new Vector2(1,1), new Vector2(0,1), new Vector2(-1,0), new Vector2(-1,-1), new Vector2(0,-1)}; //Need to check the coordinates point to a real tile
+                foreach (Vector2 diff in adjacent_diffs){
+                    Vector2 neighbour = diff + currentTile;
+                    double[] fScores_current = GetScores(currentTile, start, finish);
                     if (GridManager.Instance.GetTileAtPosition(neighbour) != null && GridManager.Instance.GetTileAtPosition(neighbour).Walkable) {
-                           int[]ghfScore_neighbour = GetScores(neighbour, start, finish);
+                           double[]ghfScore_neighbour = GetScores(neighbour, start, finish);
                            if (closedList.Contains(neighbour)) {
                             continue; //Go to next adjacent square
                            } 
                            else if (!openList.Contains(neighbour)) {
                             //Compute its score, set the parent
                             openList.Add(neighbour);
-                            parent = current;
+                            parent = currentTile;
                            } 
                            else {
                              //If it's already in the open list
@@ -68,12 +76,13 @@ public class BaseAnimal : MonoBehaviour {
 
             }
         }
+        return null;
         }
 
-    private int[] GetScores(Vector2 coords, Vector2 start, Vector2 finish) {
-        int g_score = Math.Sqrt((coords[0] - finsih[0])**2 + (coords[1] - finish[1])**2);
-        int h_score = Math.Sqrt((coords[0] - start[0])**2 + (coords[1] - start[1])**2);
-        int[] ghfScores = {g_score, h_score, g_score + h_score};
+    private double[] GetScores(Vector2 coords, Vector2 start, Vector2 finish) {
+        double g_score = Math.Pow((double)(Math.Sqrt((coords.x - finish.x) + (coords.y - finish.y))), 2.00);
+        double h_score = Math.Pow((double)(Math.Sqrt((coords.x - start.x) + (coords.y - start.y))), 2.00);
+        double[] ghfScores = {g_score, h_score, g_score + h_score};
         return ghfScores;
     }
 
