@@ -2,19 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseObject : MonoBehaviour
+public abstract class  BaseObject : MonoBehaviour
 {
+    private Vector2 position;
+    public int cost; //might not need to be public
+    public int look; // 0-10
+    public int lightStrength; //0-10
+    public int pollutionStrength; // 0-10
     public bool walk;
+    public bool sit;
     public bool swim;
-    // Start is called before the first frame update
-    void Start()
+    public virtual void Place(Tile ground)
+    // Puts the object down
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public virtual int Judge()
+    // return int val of how good the placement of the object is
     {
-        
+        return 0;
     }
 }

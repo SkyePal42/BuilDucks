@@ -48,20 +48,21 @@ public class GridManager : MonoBehaviour
                     waterCount -= 1;
                 }
 
-                var spawnedTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity);
-                spawnedTile.name = $"Tile {x} {y}";
-
-
-                spawnedTile.Init(x, y);
-
-
-                _tiles[new Vector2(x, y)] = spawnedTile;
+                SpawnTile(randomTile,x,y);
             }
         }
 
         _cam.transform.position = new Vector3((float)_width / 2 - 0.5f, (float)_height / 2 - 0.5f, -10);
 
         GameManager.Instance.ChangeState(GameState.SpawnHeroes);
+    }
+
+    public void SpawnTile(Tile randomTile, int x, int y)
+    {
+        var spawnedTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity);
+        spawnedTile.name = $"Tile {x} {y}";
+
+        _tiles[new Vector2(x, y)] = spawnedTile;
     }
 
     public Tile GetHeroSpawnTile()
@@ -109,10 +110,7 @@ public class GridManager : MonoBehaviour
                 bool fence = true;
                 Array.ForEach(_entrances, position => { if (new Vector2(x, y) == position) { fence = false; } });
                 var tile = fence ? _fenceTile : _gateHorTile;
-                var spawnedTile = Instantiate(tile, new Vector3(x, y), Quaternion.identity);
-                spawnedTile.name = $"Tile {x} {y}";
-                spawnedTile.Init(x, y);
-                _tiles[new Vector2(x, y)] = spawnedTile;
+                SpawnTile(tile,x,y);
 
             }
         }
@@ -125,10 +123,7 @@ public class GridManager : MonoBehaviour
                 bool fence = true;
                 Array.ForEach(_entrances, position => { if (new Vector2(x, y) == position) { fence = false; } });
                 var tile = fence ? _fenceTile : _gateVerTile;
-                var spawnedTile = Instantiate(tile, new Vector3(x, y), Quaternion.identity);
-                spawnedTile.name = $"Tile {x} {y}";
-                spawnedTile.Init(x, y);
-                _tiles[new Vector2(x, y)] = spawnedTile;
+                SpawnTile(tile,x,y);
             }
         }
     }

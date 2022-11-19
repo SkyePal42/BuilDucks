@@ -20,12 +20,6 @@ public class Tile : MonoBehaviour {
     public bool Walkable => _tileType == TileTypes.Grass && (OccupiedObject == null || OccupiedObject.walk);
     public bool Swimmable => _tileType == TileTypes.Water && (OccupiedObject == null || OccupiedObject.swim);
 
-
-    public void Init(int x, int y)
-    {
-      
-    }
-
     void OnMouseEnter()
     {
         _highlight.SetActive(true);
