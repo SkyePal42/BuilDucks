@@ -63,4 +63,10 @@ public class MenuManager : MonoBehaviour
         _selectedHeroObject.GetComponentInChildren<Text>().text = hero.UnitName;
         _selectedHeroObject.SetActive(true);
     }
+
+// for clicking button, pass in null when closing instead of opening. CloseSet() already exists, is this necessary?
+    public void SelectObject(GameObject obj){
+        GameManager.Instance.selectedObject = obj;
+    }
+
 }

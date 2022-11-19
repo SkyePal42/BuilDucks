@@ -35,16 +35,18 @@ public class Tile : MonoBehaviour {
     void OnMouseDown() {
         if(GameManager.Instance.GameState != GameState.HeroesTurn) return;
 
-        if (OccupiedObject == null) {
-            // instantiate object
+        if (OccupiedObject == null && GameManager.Instance.selectedObject != null && GameManager.Instance.selectedObject.GetComponent<BaseObject>().CanPlace(this)) {
+            // instantiate object, not sure how
+            var instance = OccupiedObject;
             OccupiedObject = GameManager.Instance.selectedObject.GetComponent<BaseObject>();
         }
 
     }
 
-    public void SetAnimal(BaseAnimal toSet) {
-        if (OccupiedAnimal == null) {
-            OccupiedAnimal = toSet;
-        }
+    public void SetAnimal(BaseAnimal animal) {
+        if (animal.OccupiedTile != null) animal.OccupiedTile.OccupiedAnimal = null;
+        animal.transform.position = transform.position;
+        OccupiedAnimal = animal;
+        animal.OccupiedTile = this;
     }
 }

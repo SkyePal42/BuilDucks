@@ -13,13 +13,18 @@ public abstract class  BaseObject : MonoBehaviour
     public bool walk;
     public bool sit;
     public bool swim;
-    public void Place(Tile ground)
+    // Puts the object down
+    // drag and drop or clicks?
+
+        public virtual bool CanPlace(Tile ground)
     // Puts the object down
     {
-        if (CanPlace()) ground.OccupiedObject = this;
-    }
-    protected virtual bool CanPlace(){
-        return true;
+        if (ground.Walkable == true && ground.OccupiedObject == null && ground.OccupiedAnimal == null)
+        {
+            return true;
+        }
+        return false;
+
     }
 
     public virtual int Judge()
