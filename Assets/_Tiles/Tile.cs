@@ -35,8 +35,9 @@ public class Tile : MonoBehaviour {
     void OnMouseDown() {
         if(GameManager.Instance.GameState != GameState.HeroesTurn) return;
 
-        if (OccupiedObject == null) {
-            // instantiate object
+        if (OccupiedObject == null && GameManager.Instance.selectedObject != null && GameManager.Instance.selectedObject.GetComponent<BaseObject>().CanPlace(this)) {
+            // instantiate object, not sure how
+            var instance = OccupiedObject;
             OccupiedObject = GameManager.Instance.selectedObject.GetComponent<BaseObject>();
         }
 
