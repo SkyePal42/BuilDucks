@@ -13,11 +13,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5279743023782197531, guid: 389a40555769ebb4b9a76dbb6f2248b5, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.32
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5279743023782197531, guid: 389a40555769ebb4b9a76dbb6f2248b5, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.32
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5780509605220793829, guid: 389a40555769ebb4b9a76dbb6f2248b5, type: 3}
       propertyPath: m_Sprite
@@ -92,7 +92,7 @@ MonoBehaviour:
   _isWalkable: 1
   OccupiedUnit: {fileID: 0}
   _baseColor: {r: 1, g: 1, b: 1, a: 1}
-  _offsetColor: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}
+  _offsetColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &8145960743030912638 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6663364570048627825, guid: 389a40555769ebb4b9a76dbb6f2248b5, type: 3}

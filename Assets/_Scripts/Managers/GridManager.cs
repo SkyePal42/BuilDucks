@@ -5,32 +5,51 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class GridManager : MonoBehaviour {
+public class GridManager : MonoBehaviour
+{
     public static GridManager Instance;
     [SerializeField] private int _width, _height;
 
-    [SerializeField] private Tile _grassTile, _mountainTile;
+    [SerializeField] private Tile _grassTile, _waterTile, _gateHorTile, _gateVerTile, _fenceTile;
 
     [SerializeField] private Transform _cam;
 
     private Dictionary<Vector2, Tile> _tiles;
 
-    void Awake() {
+    private int _numberOfEntrances;
+    private Vector2[] _entrances;
+
+    void Awake()
+    {
         Instance = this;
     }
 
     public void GenerateGrid()
     {
         _tiles = new Dictionary<Vector2, Tile>();
-        for (int x = 0; x < _width; x++)
+
+        GenerateEntrances();
+        GenerateFence();
+
+        for (int x = 1; x < _width - 1; x++)
         {
-            for (int y = 0; y < _height; y++) {
-                var randomTile = Random.Range(0, 6) == 3 ? _mountainTile : _grassTile;
+            for (int y = 1; y < _height - 1; y++)
+            {
+                // water tile chance calculation
+                var randomTile = Random.value > 0.9 ? _waterTile : _grassTile;
+                if (randomTile != _waterTile)
+                {
+                    int connectedWater = 0;
+                    // Recursive search surrounding tile (4way) if water nearby. then add 1, check if water next to that
+                    // Maybe check for duplicates?
+
+                }
+
                 var spawnedTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
 
-              
-                spawnedTile.Init(x,y);
+
+                spawnedTile.Init(x, y);
 
 
                 _tiles[new Vector2(x, y)] = spawnedTile;
@@ -42,7 +61,8 @@ public class GridManager : MonoBehaviour {
         GameManager.Instance.ChangeState(GameState.SpawnHeroes);
     }
 
-    public Tile GetHeroSpawnTile() {
+    public Tile GetHeroSpawnTile()
+    {
         return _tiles.Where(t => t.Key.x < _width / 2 && t.Value.Walkable).OrderBy(t => Random.value).First().Value;
     }
 
@@ -55,5 +75,58 @@ public class GridManager : MonoBehaviour {
     {
         if (_tiles.TryGetValue(pos, out var tile)) return tile;
         return null;
+    }
+
+    private void GenerateEntrances()
+    {
+        float random = Random.value;
+        if (random < 0.25f)
+        {
+            _entrances = new Vector2[3];
+            _entrances[2] = new Vector2((Random.value > 0.5f ? 0 : _width - 1), Random.Range(1, _height - 2));
+        }
+        else if (random > 0.90f)
+        {
+            _entrances = new Vector2[4];
+            _entrances[2] = new Vector2(0, Random.Range(1, _height - 2));
+            _entrances[3] = new Vector2(_width - 1, Random.Range(1, _height - 2));
+        }
+        else _entrances = new Vector2[2];
+        _entrances[0] = new Vector2(Random.Range(1, _width - 2), _height - 1);
+        _entrances[1] = new Vector2(Random.Range(1, _width - 2), 0);
+    }
+
+    private void GenerateFence()
+    {
+        for (int x = 0; x < _height; x++)
+        {
+            int[] ys = { 0, _height - 1 };
+            foreach (var y in ys)
+            {
+                bool fence = true;
+                Array.ForEach(_entrances, position => { if (new Vector2(x, y) == position) { fence = false; } });
+                var tile = fence ? _fenceTile : _gateHorTile;
+                var spawnedTile = Instantiate(tile, new Vector3(x, y), Quaternion.identity);
+                spawnedTile.name = $"Tile {x} {y}";
+                spawnedTile.Init(x, y);
+                _tiles[new Vector2(x, y)] = spawnedTile;
+
+            }
+        }
+
+        for (int y = 0; y < _height; y++)
+        {
+            int[] xs = { 0, _width - 1 };
+            foreach (var x in xs)
+            {
+                bool fence = true;
+                Array.ForEach(_entrances, position => { if (new Vector2(x, y) == position) { fence = false; } });
+                var tile = fence ? _fenceTile : _gateVerTile;
+                var spawnedTile = Instantiate(tile, new Vector3(x, y), Quaternion.identity);
+                spawnedTile.name = $"Tile {x} {y}";
+                spawnedTile.Init(x, y);
+                _tiles[new Vector2(x, y)] = spawnedTile;
+            }
+        }
     }
 }
