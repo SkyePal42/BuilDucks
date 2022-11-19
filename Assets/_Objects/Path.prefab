@@ -47,10 +47,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectName: Dirt Path
   cost: 0
-  look: 0
+  look: -1
   lightStrength: 0
   pollutionStrength: 0
-  walk: 0
+  walk: 1
   sit: 0
   swim: 0
 --- !u!212 &3558049594819633501
@@ -99,7 +99,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
