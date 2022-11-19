@@ -15,6 +15,7 @@ public abstract class  BaseObject : MonoBehaviour
     public bool swim;
     public void Place(Tile ground)
     // Puts the object down
+    // drag and drop or clicks?
     {
         if (CanPlace()) ground.OccupiedObject = this;
     }
