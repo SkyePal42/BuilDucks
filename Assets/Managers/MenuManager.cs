@@ -24,13 +24,13 @@ public class MenuManager : MonoBehaviour {
         _tileObject.GetComponentInChildren<Text>().text = tile.TileName;
         _tileObject.SetActive(true);
 
-        if (tile.OccupiedUnit) {
-            _tileUnitObject.GetComponentInChildren<Text>().text = tile.OccupiedUnit.UnitName;
+        if (tile.OccupiedObject) {
+            _tileUnitObject.GetComponentInChildren<Text>().text = tile.OccupiedObject.ObjectName;
             _tileUnitObject.SetActive(true);
         }
     }
 
-    public void ShowSelectedHero(BaseHero hero) {
+    public void ShowSelectedHero(BaseAnimal hero) {
         if (hero == null) {
             _selectedHeroObject.SetActive(false);
             return;

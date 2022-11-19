@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class  BaseObject : MonoBehaviour
 {
+    public string ObjectName;
     private Vector2 position;
     public int cost; //might not need to be public
     public int look; // 0-10

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public GameState GameState;
+    public GameObject selectedObject;
 
     void Awake()
     {
@@ -27,10 +28,7 @@ public class GameManager : MonoBehaviour
                 GridManager.Instance.GenerateGrid();
                 break;
             case GameState.SpawnHeroes:
-                UnitManager.Instance.SpawnHeroes();
-                break;
-            case GameState.SpawnEnemies:
-                UnitManager.Instance.SpawnEnemies();
+                UnitManager.Instance.SpawnAnimals();
                 break;
             case GameState.HeroesTurn:
                 break;
