@@ -20,7 +20,7 @@ public class MenuManager : MonoBehaviour
 
     public void ShowSet(int setIndex)
     {
-        if (currentSet != null) { currentSet.SetActive(false);}
+        if (currentSet != null) { currentSet.SetActive(false); }
         _Sets[setIndex].SetActive(true);
         currentSet = _Sets[setIndex];
         if (!closeObjects.interactable) closeObjects.interactable = true;
@@ -64,9 +64,15 @@ public class MenuManager : MonoBehaviour
         _selectedHeroObject.SetActive(true);
     }
 
-// for clicking button, pass in null when closing instead of opening. CloseSet() already exists, is this necessary?
-    public void SelectObject(GameObject obj){
+    // for clicking button, pass in null when closing instead of opening. CloseSet() already exists, is this necessary?
+    public void SelectObject(GameObject obj)
+    {
         GameManager.Instance.selectedObject = obj;
+    }
+
+    public void UpdateMoney()
+    {
+        _money.text = GameManager.Instance.GetMoney().ToString();
     }
 
 }

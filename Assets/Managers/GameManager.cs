@@ -8,6 +8,19 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public GameState GameState;
     public GameObject selectedObject;
+    [SerializeField] private int _Money = 100000000;
+
+    public int GetMoney() {
+        return _Money;
+    }
+    public bool RemoveMoney(int expense) {
+        if (_Money - expense >= 0) {
+            _Money -= expense;
+            MenuManager.Instance.UpdateMoney();
+            return true;
+        }
+        return false;
+    }
 
     void Awake()
     {
