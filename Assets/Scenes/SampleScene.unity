@@ -469,8 +469,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _width: 10
   _height: 10
-  _grassTile: {fileID: -750627606701587212, guid: 10b7f3a198b961041b4c4e16d6823537, type: 3}
-  _mountainTile: {fileID: -5128559355391493039, guid: 0b081e75548c8394b8a8c8e3590753b0, type: 3}
+  _grassTile: {fileID: 8684807220760456910, guid: deb918381b9ed1a49b3fa1a69ef2ce8d, type: 3}
+  _waterTile: {fileID: 8684807220760456910, guid: 5def54b4eb723484d83469e89646fcc6, type: 3}
   _gateHorTile: {fileID: 1062852311841061609, guid: 542a9c4e3f70d7041b82c09fed26647f, type: 3}
   _gateVerTile: {fileID: 8684807220760456910, guid: c7885077e34d95047a5eef5390eb5086, type: 3}
   _fenceTile: {fileID: -1537292590779600364, guid: 5507d016f496105479b5558975335701, type: 3}

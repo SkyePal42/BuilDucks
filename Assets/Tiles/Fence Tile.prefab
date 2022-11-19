@@ -122,14 +122,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2798913748850394467}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d6c454cfe648704fa09d0b7ee2a314a, type: 3}
+  m_Script: {fileID: 11500000, guid: dc142e957e8a4234b94a1d0c5facc41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tileType: 2
   TileName: Fence
   _renderer: {fileID: 5780509605220793829}
   _highlight: {fileID: 6663364570048627825}
-  _isWalkable: 1
   OccupiedUnit: {fileID: 0}
+  OccupiedObject: {fileID: 0}
 --- !u!1 &6663364570048627825
 GameObject:
   m_ObjectHideFlags: 0
