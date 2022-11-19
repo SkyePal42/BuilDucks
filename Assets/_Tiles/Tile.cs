@@ -42,9 +42,10 @@ public class Tile : MonoBehaviour {
 
     }
 
-    public void SetAnimal(BaseAnimal toSet) {
-        if (OccupiedAnimal == null) {
-            OccupiedAnimal = toSet;
-        }
+    public void SetAnimal(BaseAnimal animal) {
+        if (animal.OccupiedTile != null) animal.OccupiedTile.OccupiedAnimal = null;
+        animal.transform.position = transform.position;
+        OccupiedAnimal = animal;
+        animal.OccupiedTile = this;
     }
 }
