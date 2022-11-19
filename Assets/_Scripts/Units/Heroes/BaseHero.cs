@@ -15,4 +15,10 @@ public class BaseHero : BaseUnit
     {
         
     }
+
+    public override void MoveRandom() {
+        Tile destinationTile = GridManager.Instance.GetRandomPosition();
+        Debug.Log(destinationTile);
+    }
 }
+

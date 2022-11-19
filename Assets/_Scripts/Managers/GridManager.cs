@@ -43,17 +43,25 @@ public class GridManager : MonoBehaviour {
     }
 
     public Tile GetHeroSpawnTile() {
-        return _tiles.Where(t => t.Key.x < _width / 2 && t.Value.Walkable).OrderBy(t => Random.value).First().Value;
+        // Possibly more efficient get random https://stackoverflow.com/questions/40412340/c-sharp-dictionary-get-item-by-index
+        return _tiles.Where(t => t.Value.Walkable).OrderBy(t => Random.value).First().Value;
     }
 
     public Tile GetEnemySpawnTile()
     {
         return _tiles.Where(t => t.Key.x > _width / 2 && t.Value.Walkable).OrderBy(t => Random.value).First().Value;
     }
+    
 
     public Tile GetTileAtPosition(Vector2 pos)
     {
         if (_tiles.TryGetValue(pos, out var tile)) return tile;
         return null;
+    }
+
+    public Tile GetRandomPosition() {
+        var walkableTiles = _tiles.Where(t => t.Value.Walkable);
+        var selectedIndex = Random.Range(0, walkableTiles.Count());
+        return walkableTiles.ElementAt(selectedIndex).Value;
     }
 }
