@@ -1,13 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-<<<<<<<< HEAD:Assets/Sprites/Bush1.png.meta
-guid: 6453884cfdc5c4e439518745fbc076e7
-========
-guid: 5755621644cbba64b92b61c6683a4456
->>>>>>>> eca2474cb29bb7abe0615974cca8658994a3246b:Assets/Sprites/Builduck Icon.png.meta
-=======
-guid: 6453884cfdc5c4e439518745fbc076e7
->>>>>>> eca2474cb29bb7abe0615974cca8658994a3246b
+guid: 815cb6eb5bb85e24fad1dc68108b6bb8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
