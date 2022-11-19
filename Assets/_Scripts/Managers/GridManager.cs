@@ -48,7 +48,7 @@ public class GridManager : MonoBehaviour
                     waterCount -= 1;
                 }
 
-                SpawnTile(randomTile,x,y);
+                SpawnTile(randomTile, x, y);
             }
         }
 
@@ -64,10 +64,10 @@ public class GridManager : MonoBehaviour
 
         _tiles[new Vector2(x, y)] = spawnedTile;
     }
-
     public Tile GetHeroSpawnTile()
     {
-        return _tiles.Where(t => t.Key.x < _width / 2 && t.Value.Walkable).OrderBy(t => Random.value).First().Value;
+        // Possibly more efficient get random https://stackoverflow.com/questions/40412340/c-sharp-dictionary-get-item-by-index
+        return _tiles.Where(t => t.Value.Walkable).OrderBy(t => Random.value).First().Value;
     }
 
     public Tile GetEnemySpawnTile()
@@ -75,10 +75,18 @@ public class GridManager : MonoBehaviour
         return _tiles.Where(t => t.Key.x > _width / 2 && t.Value.Walkable).OrderBy(t => Random.value).First().Value;
     }
 
+
     public Tile GetTileAtPosition(Vector2 pos)
     {
         if (_tiles.TryGetValue(pos, out var tile)) return tile;
         return null;
+    }
+
+    public Tile GetRandomPosition()
+    {
+        var walkableTiles = _tiles.Where(t => t.Value.Walkable);
+        var selectedIndex = Random.Range(0, walkableTiles.Count());
+        return walkableTiles.ElementAt(selectedIndex).Value;
     }
 
     private void GenerateEntrances()
@@ -110,7 +118,7 @@ public class GridManager : MonoBehaviour
                 bool fence = true;
                 Array.ForEach(_entrances, position => { if (new Vector2(x, y) == position) { fence = false; } });
                 var tile = fence ? _fenceTile : _gateHorTile;
-                SpawnTile(tile,x,y);
+                SpawnTile(tile, x, y);
 
             }
         }
@@ -123,7 +131,7 @@ public class GridManager : MonoBehaviour
                 bool fence = true;
                 Array.ForEach(_entrances, position => { if (new Vector2(x, y) == position) { fence = false; } });
                 var tile = fence ? _fenceTile : _gateVerTile;
-                SpawnTile(tile,x,y);
+                SpawnTile(tile, x, y);
             }
         }
     }
