@@ -144,6 +144,5 @@ public class GridManager : MonoBehaviour
                 _tiles[new Vector2(x, y)] = spawnedTile;
             }
         }
->>>>>>> eca2474cb29bb7abe0615974cca8658994a3246b
     }
 }
