@@ -20,14 +20,12 @@ public abstract class  BaseObject : MonoBehaviour
 // Puts the object down
     {  
     if (ground.Walkable == true && ground.OccupiedObject == null && ground.OccupiedAnimal == null)
-    {   
-        SetCoords(ground);
-        //Debug.Log('Working');
+    {
         return true;
     }
     return false;
     }
-    
+
     public virtual int Judge()
     // return int val of how good the placement of the object is
     {
