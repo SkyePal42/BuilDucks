@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Path : BaseObject
 {
-    public override void Place(Tile ground)
+    protected override bool CanPlace()
     // Puts the object down
     {
-        ground.OccupiedObject = this;
+        return true;
     }
 
      public override int Judge()
