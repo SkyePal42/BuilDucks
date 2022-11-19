@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
                 GridManager.Instance.GenerateGrid();
                 break;
             case GameState.SpawnHeroes:
-                UnitManager.Instance.SpawnAnimals();
+                AnimalManager.Instance.SpawnAnimals();
                 break;
             case GameState.HeroesTurn:
                 break;

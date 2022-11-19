@@ -4,9 +4,9 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-public class UnitManager : MonoBehaviour
+public class AnimalManager : MonoBehaviour
 {
-    public static UnitManager Instance;
+    public static AnimalManager Instance;
 
     private List<ScriptableAnimal> _units;
     public BaseAnimal SelectedHero;
