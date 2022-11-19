@@ -21,6 +21,7 @@ public abstract class  BaseObject : MonoBehaviour
     {
         if (ground.Walkable == true && ground.OccupiedObject == null && ground.OccupiedAnimal == null)
         {
+            //Debug.Log('Working');
             return true;
         }
         return false;
