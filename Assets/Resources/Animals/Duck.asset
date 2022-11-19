@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6fdbccd265ea747ac0fb13ab154cfe, type: 3}
   m_Name: Duck
   m_EditorClassIdentifier: 
-  AnimalPrefab: {fileID: 0}
-  numberOnMap: 0
+  AnimalPrefab: {fileID: 8331002694000366304, guid: 3f5e7d90f3865d3468efb431211f451c, type: 3}
+  numberOnMap: 10
