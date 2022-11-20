@@ -99,9 +99,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectName: 
   cost: 0
-  look: 0
+  look: -2
   lightStrength: 0
-  pollutionStrength: 0
+  pollutionStrength: 3
   walk: 0
   sit: 0
   swim: 0

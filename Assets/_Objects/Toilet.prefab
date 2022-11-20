@@ -51,7 +51,7 @@ MonoBehaviour:
   lightStrength: 1
   pollutionStrength: 1
   walk: 0
-  sit: 0
+  sit: 1
   swim: 0
 --- !u!212 &6567479469125265759
 SpriteRenderer:
