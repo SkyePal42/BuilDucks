@@ -13,9 +13,27 @@ public abstract class  BaseObject : MonoBehaviour
     public bool walk;
     public bool sit;
     public bool swim;
+    public enum ObjectTypes
+    {
+        NULL = 0,
+        BENCH = 1,
+        BIN = 2,
+        BUSH = 3,
+        FLOWER = 4,
+        FOUNTAIN = 5,
+        LAMP = 6,
+        PATH = 7,
+        TOILET = 8,
+        TREE = 9
+    }
+    public ObjectTypes ObjectType = ObjectTypes.NULL;
+    public static Dictionary<ObjectTypes,List<BaseObject>> ObjectsList = new Dictionary<ObjectTypes,List<BaseObject>>();
     // Puts the object down
     // drag and drop or clicks?
 
+    protected BaseObject() {
+        ObjectsList[ObjectType].Add(this);
+    }
     public virtual bool CanPlace(Tile ground)
 // Puts the object down
     {  
