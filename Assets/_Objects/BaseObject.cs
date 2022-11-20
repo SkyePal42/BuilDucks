@@ -6,7 +6,7 @@ public abstract class BaseObject : MonoBehaviour
 {
     public string ObjectName;
     private Vector2 position;
-    public int cost; //might not need to be public
+    public int cost;
     public int look; // 0-10
     public int lightStrength; //0-10
     public int pollutionStrength; // 0-10
