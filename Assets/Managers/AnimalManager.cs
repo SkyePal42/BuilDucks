@@ -30,6 +30,6 @@ public class AnimalManager : MonoBehaviour
                 randomSpawnTile.SetAnimal(spawnedAnimal);
             }
         });
-        GameManager.Instance.ChangeState(GameState.HeroesTurn);
+        GameManager.Instance.ChangeState(GameState.PlayerTurn);
     }
 }

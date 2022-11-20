@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e207fa736052849298bc7f60b4f878d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: 
+  ObjectName: Toilet
   cost: 0
   look: -1
   lightStrength: 1
@@ -53,6 +53,7 @@ MonoBehaviour:
   walk: 0
   sit: 1
   swim: 0
+  ObjectType: 8
 --- !u!212 &6567479469125265759
 SpriteRenderer:
   m_ObjectHideFlags: 0

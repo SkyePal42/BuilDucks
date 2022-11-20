@@ -33,11 +33,13 @@ public class Tile : MonoBehaviour {
     }
 
     void OnMouseDown() {
-        if(GameManager.Instance.GameState != GameState.HeroesTurn) return;
+        if(GameManager.Instance.GameState != GameState.PlayerTurn) return;
 
         if (OccupiedObject == null && GameManager.Instance.selectedObject != null && GameManager.Instance.selectedObject.GetComponent<BaseObject>().CanPlace(this) && GameManager.Instance.RemoveMoney(GameManager.Instance.selectedObject.GetComponent<BaseObject>().cost)) {
             var instance = Instantiate(GameManager.Instance.selectedObject,transform);
             OccupiedObject = instance.GetComponent<BaseObject>();
+            GameManager.Instance.ChangeState(GameState.ColleagueTurn);
+            MenuManager.Instance.CloseSet();
         }
     }
 

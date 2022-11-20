@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class  BaseObject : MonoBehaviour
+public abstract class BaseObject : MonoBehaviour
 {
     public string ObjectName;
     private Vector2 position;
@@ -27,21 +27,23 @@ public abstract class  BaseObject : MonoBehaviour
         TREE = 9
     }
     public ObjectTypes ObjectType = ObjectTypes.NULL;
-    public static Dictionary<ObjectTypes,List<BaseObject>> ObjectsList = new Dictionary<ObjectTypes,List<BaseObject>>();
+    public static Dictionary<ObjectTypes, List<BaseObject>> ObjectsList = new Dictionary<ObjectTypes, List<BaseObject>>();
     // Puts the object down
     // drag and drop or clicks?
 
-    protected BaseObject() {
+    protected BaseObject()
+    {
+        if (!ObjectsList.ContainsKey(ObjectType)) ObjectsList[ObjectType] = new List<BaseObject>();
         ObjectsList[ObjectType].Add(this);
     }
     public virtual bool CanPlace(Tile ground)
-// Puts the object down
-    {  
-    if (ground.Walkable == true && ground.OccupiedObject == null && ground.OccupiedAnimal == null)
+    // Puts the object down
     {
-        return true;
-    }
-    return false;
+        if (ground.Walkable == true && ground.OccupiedObject == null && ground.OccupiedAnimal == null)
+        {
+            return true;
+        }
+        return false;
     }
 
     public virtual int Judge()
