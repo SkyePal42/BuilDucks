@@ -46,8 +46,8 @@ public class AnimalManager : MonoBehaviour
         */
 
         BaseAnimal duck = _animalInstances[0];
-        List<Vector2> shortestPath = duck.ShortestPath();
-        Debug.Log(shortestPath);
+        List<PathNode> shortestPath = duck.FindPath();
+        Debug.Log(shortestPath[1].x.ToString() +","+ shortestPath[1].y.ToString());
     }
 
 }
