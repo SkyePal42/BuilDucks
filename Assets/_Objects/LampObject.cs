@@ -7,6 +7,6 @@ public class LampObject : BaseObject
      public override int Judge()
     // return int val of how good the placement of the object is
     {
-        return look;
+        return look - pollutionStrength; //assuming the pollutionStrength is positive
     }
 }
