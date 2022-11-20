@@ -102,6 +102,6 @@ MonoBehaviour:
   look: 1
   lightStrength: 0
   pollutionStrength: 0
-  walk: 1
+  walk: 0
   sit: 1
   swim: 0
