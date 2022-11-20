@@ -16,6 +16,7 @@ public class MenuManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        UpdateMoney();
     }
 
     public void ShowSet(int setIndex)
