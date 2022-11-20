@@ -18,10 +18,12 @@ public class GridManager : MonoBehaviour
 
     private int _numberOfEntrances;
     private Vector2[] _entrances;
-    public int GetHeight() {
+    public int GetHeight()
+    {
         return _height;
     }
-    public int GetWidth() {
+    public int GetWidth()
+    {
         return _width;
     }
     public List<GameObject> _objects;
@@ -32,7 +34,8 @@ public class GridManager : MonoBehaviour
         _objects = Resources.LoadAll<GameObject>("Objects").ToList();
     }
 
-    public Dictionary<Vector2, Tile> GetTiles() {
+    public Dictionary<Vector2, Tile> GetTiles()
+    {
         return _tiles;
     }
 
@@ -56,6 +59,10 @@ public class GridManager : MonoBehaviour
                 {
                     randomTile = _waterTile;
                     waterCount -= 1;
+                    for (int i = 0; i < _entrances.Length; i++)
+                    {
+                        if (Vector2.Distance(_entrances[i], new Vector2(x, y)) <= 1) { randomTile = _grassTile; waterCount += 1; break; }
+                    }
                 }
 
                 SpawnTile(randomTile, x, y);
