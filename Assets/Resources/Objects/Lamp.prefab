@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: Wave Emitting Lamp
-  cost: 0
+  cost: 5
   look: 3
   lightStrength: 2
   pollutionStrength: 1

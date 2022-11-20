@@ -13,7 +13,8 @@ public class PathNode
 
     public PathNode(int x, int y)
     {
-        Initialise(x,y,true);
+
+        Initialise(x,y,true); // change the bool true to isWalkable which is derived from the object on the tile (if it exists) and if it is walkable or sittable
     }
     public PathNode(int x, int y, bool Walkable)
     {
@@ -24,7 +25,7 @@ public class PathNode
     {
         this.x = x;
         this.y = y;
-        isWalkable = true;
+        isWalkable = Walkable;
         gCost = 99999999;
         CalculateFCost();
         cameFromNode = null;

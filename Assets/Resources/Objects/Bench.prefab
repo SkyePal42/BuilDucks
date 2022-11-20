@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: Wooden Bench
-  cost: 0
+  cost: 5
   look: 1
   lightStrength: 0
   pollutionStrength: 0

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: Little Fountain
-  cost: 0
+  cost: 15
   look: 3
   lightStrength: 0
   pollutionStrength: 0
