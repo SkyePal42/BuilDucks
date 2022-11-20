@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectName: Toilet
-  cost: 0
+  cost: 5
   look: -1
   lightStrength: 1
   pollutionStrength: 1
