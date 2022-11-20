@@ -9,11 +9,19 @@ public class MenuManager : MonoBehaviour
     public static MenuManager Instance;
 
     [SerializeField] private GameObject _selectedHeroObject, _tileObject, _tileUnitObject;
-    [SerializeField] private TextMeshProUGUI _money, _turn, _selected;
-    [SerializeField] private GameObject[] _Sets, _Options;
+    [SerializeField] private TextMeshProUGUI _money, _turn, _selected, _huamnScore, _natureScore;
+    [SerializeField] private GameObject[] _Sets, _Options, _EndGame;
     private GameObject currentSet = null;
     [SerializeField] private Button closeObjects;
     public Button _endGame;
+    public void EndGame(int human, int nature) {
+        foreach (var item in _EndGame)
+        {
+            item.SetActive(true);
+        }
+        _huamnScore.text = human.ToString();
+        _natureScore.text = nature.ToString();
+    }
     void Awake()
     {
         Instance = this;

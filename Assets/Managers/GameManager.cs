@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
         {
             BaseObject.ObjectsList.ElementAt(i).Value.ForEach(o => total += o.Judge());
         }
-        Debug.Log(total);
+        MenuManager.Instance.EndGame(total,0);
     }
 
     public void EndGame() { MenuManager.Instance._endGame.interactable = false; ChangeState(GameState.EvaluationPhase); }
