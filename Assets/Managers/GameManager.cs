@@ -125,6 +125,12 @@ public class GameManager : MonoBehaviour
         {
             BaseObject.ObjectsList.ElementAt(i).Value.ForEach(o => humanTotal += o.Judge());
         }
+
+        _CurrentTasks.ForEach(t => {
+            if (!BaseObject.ObjectsList.ContainsKey(t.typeOfObject) || BaseObject.ObjectsList[t.typeOfObject].Count < t.numberOfObjects) humanTotal += t.TaskPenalty;
+            else humanTotal += t.TaskReward;
+        });
+
         int natureTotal = 0;
         BaseAnimal sacrifice = AnimalManager.Instance._animalInstances[0];
         for (int i = 0; i < GridManager.Instance._lakes.Count; i++)
@@ -136,7 +142,7 @@ public class GameManager : MonoBehaviour
                     GridManager.Instance.GetTileAtPosition(GridManager.Instance._lakes[i]).SetAnimal(sacrifice);
                     var result = sacrifice.FindPath(GridManager.Instance._lakes[n]);
                     natureTotal += (result == null ? -10 : 1);
-                    if (result != null) Debug.Log(result[result.Count - 1].PrintString()); else Debug.Log("Returned Null!");
+                    // if (result != null) Debug.Log(result[result.Count - 1].PrintString()); else Debug.Log("Returned Null!");
                 }
                 else
                 {
