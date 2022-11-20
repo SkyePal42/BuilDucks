@@ -11,34 +11,18 @@ public class GameManager : MonoBehaviour
     public GameState GameState;
     public GameObject selectedObject;
     [SerializeField] private int _Money = 100000000;
-
-    public int GetMoney()
-    {
-        return _Money;
-    }
-    public bool RemoveMoney(int expense)
-    {
-        if (_Money - expense >= 0)
-        {
-            _Money -= expense;
-            MenuManager.Instance.UpdateMoney();
-            return true;
-        }
-        return false;
-    }
-    public int SpeculateExpense(int expense)
-    {
-        return _Money - expense;
-    }
+    private List<BaseTask> _Tasks;
+    public List<BaseTask> _CurrentTasks = new List<BaseTask>();
 
     void Awake()
     {
         Instance = this;
+        _Tasks = Resources.LoadAll<BaseTask>("Tasks").ToList();
     }
 
     void Start()
     {
-        ChangeState(GameState.GenerateGrid);
+        ChangeState(GameState.TaskAssignment);
     }
 
     public void ChangeState(GameState newState)
@@ -47,6 +31,9 @@ public class GameManager : MonoBehaviour
         MenuManager.Instance.ChangeState(GameState.ToString());
         switch (newState)
         {
+            case GameState.TaskAssignment:
+                AssignTasks(2);
+                break;
             case GameState.GenerateGrid:
                 GridManager.Instance.GenerateGrid();
                 break;
@@ -69,6 +56,40 @@ public class GameManager : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
+    }
+
+    // ! Task Assignment Code
+
+    private void AssignTasks(int numOfTasks)
+    {
+        for (int i = 0; i < numOfTasks; i++)
+        {
+            var candidates = _Tasks.Where(t => !Array.Exists(_CurrentTasks.ToArray(), n => n == t) && Random.value < t.Probability).ToList();
+            if (candidates.Count > 0) _CurrentTasks.Add(candidates.First());
+        }
+        MenuManager.Instance.UpdateTasks();
+        ChangeState(GameState.GenerateGrid);
+    }
+
+    // ! Money Stuff
+
+    public int GetMoney()
+    {
+        return _Money;
+    }
+    public bool RemoveMoney(int expense)
+    {
+        if (_Money - expense >= 0)
+        {
+            _Money -= expense;
+            MenuManager.Instance.UpdateMoney();
+            return true;
+        }
+        return false;
+    }
+    public int SpeculateExpense(int expense)
+    {
+        return _Money - expense;
     }
 
     // ! Colleague Code
@@ -104,6 +125,12 @@ public class GameManager : MonoBehaviour
         {
             BaseObject.ObjectsList.ElementAt(i).Value.ForEach(o => humanTotal += o.Judge());
         }
+
+        _CurrentTasks.ForEach(t => {
+            if (!BaseObject.ObjectsList.ContainsKey(t.typeOfObject) || BaseObject.ObjectsList[t.typeOfObject].Count < t.numberOfObjects) humanTotal += t.TaskPenalty;
+            else humanTotal += t.TaskReward;
+        });
+
         int natureTotal = 0;
         BaseAnimal sacrifice = AnimalManager.Instance._animalInstances[0];
         for (int i = 0; i < GridManager.Instance._lakes.Count; i++)
@@ -115,7 +142,7 @@ public class GameManager : MonoBehaviour
                     GridManager.Instance.GetTileAtPosition(GridManager.Instance._lakes[i]).SetAnimal(sacrifice);
                     var result = sacrifice.FindPath(GridManager.Instance._lakes[n]);
                     natureTotal += (result == null ? -10 : 1);
-                    if (result != null) Debug.Log(result[result.Count - 1].PrintString()); else Debug.Log("Returned Null!");
+                    // if (result != null) Debug.Log(result[result.Count - 1].PrintString()); else Debug.Log("Returned Null!");
                 }
                 else
                 {
@@ -132,6 +159,7 @@ public class GameManager : MonoBehaviour
 
 public enum GameState
 {
+    TaskAssignment = -1,
     GenerateGrid = 0,
     SpawnAnimals = 1,
     PlayerTurn = 2,
