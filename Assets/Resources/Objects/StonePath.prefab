@@ -105,3 +105,4 @@ MonoBehaviour:
   walk: 1
   sit: 0
   swim: 0
+  ObjectType: 7
