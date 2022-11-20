@@ -24,6 +24,10 @@ public class GameManager : MonoBehaviour
         }
         return false;
     }
+    public int SpeculateExpense(int expense)
+    {
+        return _Money - expense;
+    }
 
     void Awake()
     {

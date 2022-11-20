@@ -18,10 +18,16 @@ public class GridManager : MonoBehaviour
 
     private int _numberOfEntrances;
     private Vector2[] _entrances;
+    public List<GameObject> _objects;
 
     void Awake()
     {
         Instance = this;
+        _objects = Resources.LoadAll<GameObject>("Objects").ToList();
+    }
+
+    public Dictionary<Vector2, Tile> GetTiles() {
+        return _tiles;
     }
 
     public void GenerateGrid()
