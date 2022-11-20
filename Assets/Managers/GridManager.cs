@@ -24,10 +24,16 @@ public class GridManager : MonoBehaviour
     public int GetWidth() {
         return _width;
     }
+    public List<GameObject> _objects;
 
     void Awake()
     {
         Instance = this;
+        _objects = Resources.LoadAll<GameObject>("Objects").ToList();
+    }
+
+    public Dictionary<Vector2, Tile> GetTiles() {
+        return _tiles;
     }
 
     public void GenerateGrid()
@@ -38,7 +44,6 @@ public class GridManager : MonoBehaviour
         GenerateFence();
 
         int waterCount = 3;
-        bool water = false;
 
         for (int x = 1; x < _width - 1; x++)
         {
@@ -50,7 +55,6 @@ public class GridManager : MonoBehaviour
                 if (waterCount > 0 && Random.value > 0.9)
                 {
                     randomTile = _waterTile;
-                    water = true;
                     waterCount -= 1;
                 }
 
@@ -60,7 +64,7 @@ public class GridManager : MonoBehaviour
 
         _cam.transform.position = new Vector3((float)_width / 2 - 0.5f, (float)_height / 2 - 0.5f, -10);
 
-        GameManager.Instance.ChangeState(GameState.SpawnHeroes);
+        GameManager.Instance.ChangeState(GameState.SpawnAnimals);
     }
 
     public void SpawnTile(Tile randomTile, int x, int y)

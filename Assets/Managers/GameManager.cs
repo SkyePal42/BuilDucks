@@ -10,16 +10,23 @@ public class GameManager : MonoBehaviour
     public GameObject selectedObject;
     [SerializeField] private int _Money = 100000000;
 
-    public int GetMoney() {
+    public int GetMoney()
+    {
         return _Money;
     }
-    public bool RemoveMoney(int expense) {
-        if (_Money - expense >= 0) {
+    public bool RemoveMoney(int expense)
+    {
+        if (_Money - expense >= 0)
+        {
             _Money -= expense;
             MenuManager.Instance.UpdateMoney();
             return true;
         }
         return false;
+    }
+    public int SpeculateExpense(int expense)
+    {
+        return _Money - expense;
     }
 
     void Awake()
@@ -35,17 +42,23 @@ public class GameManager : MonoBehaviour
     public void ChangeState(GameState newState)
     {
         GameState = newState;
+        MenuManager.Instance.ChangeState(GameState.ToString());
         switch (newState)
         {
             case GameState.GenerateGrid:
                 GridManager.Instance.GenerateGrid();
                 break;
-            case GameState.SpawnHeroes:
+            case GameState.SpawnAnimals:
                 AnimalManager.Instance.SpawnAnimals();
                 break;
-            case GameState.HeroesTurn:
+            case GameState.PlayerTurn:
                 break;
-            case GameState.EnemiesTurn:
+            case GameState.ColleagueTurn:
+                ColleagueManager.DoMischief();
+                break;
+            case GameState.AnimalsTurn:
+                break;
+            case GameState.EvaluationPhase:
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -56,8 +69,9 @@ public class GameManager : MonoBehaviour
 public enum GameState
 {
     GenerateGrid = 0,
-    SpawnHeroes = 1,
-    SpawnEnemies = 2,
-    HeroesTurn = 3,
-    EnemiesTurn = 4
+    SpawnAnimals = 1,
+    PlayerTurn = 2,
+    ColleagueTurn = 3,
+    AnimalsTurn = 4,
+    EvaluationPhase = 5
 }

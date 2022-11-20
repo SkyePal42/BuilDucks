@@ -22,19 +22,21 @@ public class AnimalManager : MonoBehaviour
 
     public void SpawnAnimals()
     {
-        _animals.ForEach(u =>
-           {
-               for (int i = 0; i < u.numberOnMap; i++)
-               {
-                   var spawnedAnimal = Instantiate(u.AnimalPrefab);
-                   var randomSpawnTile = GridManager.Instance.GetHeroSpawnTile();
-                   randomSpawnTile.SetAnimal(spawnedAnimal);
-                   _animalInstances.Add(spawnedAnimal.GetComponent<BaseAnimal>());
-               }
-           });
 
+        _animals.ForEach(u =>
+        {
+            for (int i = 0; i < u.numberOnMap; i++)
+            {
+                var spawnedAnimal = Instantiate(u.AnimalPrefab);
+                var randomSpawnTile = GridManager.Instance.GetHeroSpawnTile();
+                randomSpawnTile.SetAnimal(spawnedAnimal);
+                
+                   _animalInstances.Add(spawnedAnimal.GetComponent<BaseAnimal>());
+            }
+        });
+        
         AnimalManager.Instance.MoveAbout();
-        GameManager.Instance.ChangeState(GameState.HeroesTurn);
+        GameManager.Instance.ChangeState(GameState.PlayerTurn);
     }
 
     public void MoveAbout()

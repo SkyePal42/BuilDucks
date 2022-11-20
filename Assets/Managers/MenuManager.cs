@@ -9,13 +9,15 @@ public class MenuManager : MonoBehaviour
     public static MenuManager Instance;
 
     [SerializeField] private GameObject _selectedHeroObject, _tileObject, _tileUnitObject;
-    [SerializeField] private TextMeshProUGUI _money;
+    [SerializeField] private TextMeshProUGUI _money, _turn, _selected;
     [SerializeField] private GameObject[] _Sets;
     private GameObject currentSet = null;
     [SerializeField] private Button closeObjects;
     void Awake()
     {
         Instance = this;
+        UpdateMoney();
+        SelectObject(null);
     }
 
     public void ShowSet(int setIndex)
@@ -30,6 +32,7 @@ public class MenuManager : MonoBehaviour
     {
         currentSet.SetActive(false);
         closeObjects.interactable = false;
+        SelectObject(null);
     }
 
     public void ShowTileInfo(Tile tile)
@@ -68,11 +71,17 @@ public class MenuManager : MonoBehaviour
     public void SelectObject(GameObject obj)
     {
         GameManager.Instance.selectedObject = obj;
+        _selected.text = obj == null ? "" : obj.GetComponent<BaseObject>().ObjectName;
     }
 
     public void UpdateMoney()
     {
         _money.text = GameManager.Instance.GetMoney().ToString();
+    }
+
+    public void ChangeState(string newState)
+    {
+        _turn.text = newState;
     }
 
 }
