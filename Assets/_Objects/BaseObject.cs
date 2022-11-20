@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseObject : MonoBehaviour
+public class BaseObject : MonoBehaviour
 {
     public string ObjectName;
     private Vector2 position;
@@ -27,6 +27,7 @@ public abstract class BaseObject : MonoBehaviour
         TREE = 9
     }
     public ObjectTypes ObjectType = ObjectTypes.NULL;
+    [SerializeField]
     public static Dictionary<ObjectTypes, List<BaseObject>> ObjectsList = new Dictionary<ObjectTypes, List<BaseObject>>();
     // Puts the object down
     // drag and drop or clicks?
