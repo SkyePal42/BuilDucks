@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 658514972686369189}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.9220057, y: 3.8412824, z: 0.06625515}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 4dccdd66da916874eaf957789293050e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -94,14 +94,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 658514972686369189}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69ed799753497da4887e82addb6c14f0, type: 3}
+  m_Script: {fileID: 11500000, guid: e49c3bf7b26594f3fb241bd875e5376c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectName: StonePath
+  ObjectName: 
   cost: 0
-  look: 0
+  look: -1
   lightStrength: 0
   pollutionStrength: 0
-  walk: 0
+  walk: 1
   sit: 0
   swim: 0
