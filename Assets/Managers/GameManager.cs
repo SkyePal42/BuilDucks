@@ -126,9 +126,10 @@ public class GameManager : MonoBehaviour
             BaseObject.ObjectsList.ElementAt(i).Value.ForEach(o => humanTotal += o.Judge());
         }
 
-        _CurrentTasks.ForEach(t => {
-            if (!BaseObject.ObjectsList.ContainsKey(t.typeOfObject) || BaseObject.ObjectsList[t.typeOfObject].Count < t.numberOfObjects) humanTotal += t.TaskPenalty;
-            else humanTotal += t.TaskReward;
+        _CurrentTasks.ForEach(t =>
+        {
+            if (BaseObject.ObjectsList.ContainsKey(t.typeOfObject) && BaseObject.ObjectsList[t.typeOfObject].Count >= t.numberOfObjects) humanTotal += t.TaskReward;
+            else humanTotal += t.TaskPenalty;
         });
 
         int natureTotal = 0;
