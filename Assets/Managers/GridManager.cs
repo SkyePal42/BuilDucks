@@ -18,6 +18,12 @@ public class GridManager : MonoBehaviour
 
     private int _numberOfEntrances;
     private Vector2[] _entrances;
+    public int GetHeight() {
+        return _height;
+    }
+    public int GetWidth() {
+        return _width;
+    }
 
     void Awake()
     {

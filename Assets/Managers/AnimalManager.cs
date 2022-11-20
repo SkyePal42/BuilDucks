@@ -8,28 +8,46 @@ public class AnimalManager : MonoBehaviour
 {
     public static AnimalManager Instance;
 
-    private List<ScriptableAnimal> _units;
+    private List<ScriptableAnimal> _animals;
+    private List<BaseAnimal> _animalInstances = new List<BaseAnimal>();
     public BaseAnimal SelectedHero;
 
     void Awake()
     {
         Instance = this;
 
-        _units = Resources.LoadAll<ScriptableAnimal>("Animals").ToList();
+        _animals = Resources.LoadAll<ScriptableAnimal>("Animals").ToList();
 
     }
 
     public void SpawnAnimals()
     {
-        _units.ForEach(u =>
-        {
-            for (int i = 0; i < u.numberOnMap; i++)
-            {
-                var spawnedAnimal = Instantiate(u.AnimalPrefab);
-                var randomSpawnTile = GridManager.Instance.GetHeroSpawnTile();
-                randomSpawnTile.SetAnimal(spawnedAnimal);
-            }
-        });
+        _animals.ForEach(u =>
+           {
+               for (int i = 0; i < u.numberOnMap; i++)
+               {
+                   var spawnedAnimal = Instantiate(u.AnimalPrefab);
+                   var randomSpawnTile = GridManager.Instance.GetHeroSpawnTile();
+                   randomSpawnTile.SetAnimal(spawnedAnimal);
+                   _animalInstances.Add(spawnedAnimal.GetComponent<BaseAnimal>());
+               }
+           });
+
+        AnimalManager.Instance.MoveAbout();
         GameManager.Instance.ChangeState(GameState.HeroesTurn);
     }
+
+    public void MoveAbout()
+    {
+        /*
+        foreach (BaseAnimal animal in _animalInstances) {
+            Debug.Log(animal);
+        }
+        */
+
+        BaseAnimal duck = _animalInstances[0];
+        List<Vector2> shortestPath = duck.ShortestPath();
+        Debug.Log(shortestPath);
+    }
+
 }
