@@ -89,8 +89,8 @@ public class GridManager : MonoBehaviour
     public Tile GetRandomPosition()
     {
         var walkableTiles = _tiles.Where(t => t.Value.Walkable);
-        var selectedIndex = Random.Range(0, walkableTiles.Count());
-        return walkableTiles.ElementAt(selectedIndex).Value;
+        if (walkableTiles.Count() > 0) return walkableTiles.ElementAt(Random.Range(0, walkableTiles.Count())).Value;
+        return null;
     }
 
     private void GenerateEntrances()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class BinObject : BaseObject
 {
@@ -10,10 +11,16 @@ public class BinObject : BaseObject
         int score = look;
         int PathTolerance = 1;
         int closestPath = 0;
-        BaseObject.ObjectsList[ObjectTypes.PATH].ForEach(o => {if ((Mathf.Abs(transform.position.x - o.transform.position.x)+Mathf.Abs(transform.position.x - o.transform.position.x)) < closestPath)
+        for (int i = 0; i < BaseObject.ObjectsList.Count; i++)
         {
-            closestPath = Mathf.RoundToInt(Mathf.Abs(transform.position.x - o.transform.position.x)+Mathf.Abs(transform.position.x - o.transform.position.x));
-        }});
+            BaseObject.ObjectsList.ElementAt(i).Value.ForEach(o =>
+            {
+                if ((Mathf.Abs(transform.position.x - o.transform.position.x) + Mathf.Abs(transform.position.x - o.transform.position.x)) < closestPath)
+                {
+                    closestPath = Mathf.RoundToInt(Mathf.Abs(transform.position.x - o.transform.position.x) + Mathf.Abs(transform.position.x - o.transform.position.x));
+                }
+            });
+        }
         if (closestPath > PathTolerance) score -= closestPath - PathTolerance;
         return score;
     }

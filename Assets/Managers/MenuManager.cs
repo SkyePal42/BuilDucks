@@ -10,14 +10,27 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] private GameObject _selectedHeroObject, _tileObject, _tileUnitObject;
     [SerializeField] private TextMeshProUGUI _money, _turn, _selected;
-    [SerializeField] private GameObject[] _Sets;
+    [SerializeField] private GameObject[] _Sets, _Options;
     private GameObject currentSet = null;
     [SerializeField] private Button closeObjects;
+    public Button _endGame;
     void Awake()
     {
         Instance = this;
         UpdateMoney();
         SelectObject(null);
+    }
+    public void DisableAll() {
+        for (int i = 0; i < _Options.Length; i++)
+        {
+            _Options[i].GetComponent<Button>().interactable = false;
+        }
+    }
+    public void EnableAll() {
+        for (int i = 0; i < _Options.Length; i++)
+        {
+            _Options[i].GetComponent<Button>().interactable = true;
+        }
     }
 
     public void ShowSet(int setIndex)

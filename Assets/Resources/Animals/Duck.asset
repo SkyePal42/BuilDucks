@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Duck
   m_EditorClassIdentifier: 
   AnimalPrefab: {fileID: 8331002694000366304, guid: 3f5e7d90f3865d3468efb431211f451c, type: 3}
-  numberOnMap: 10
+  numberOnMap: 2

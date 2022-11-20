@@ -8,8 +8,8 @@ public class PathObject : BaseObject
     // return int val of how good the placement of the object is
     {
         int score = look;
-        BaseObject.ObjectsList[ObjectTypes.FLOWER].ForEach(o => {if (Vector2.Distance(transform.position,o.transform.position) <= 1) score += 1;});
-        BaseObject.ObjectsList[ObjectTypes.LAMP].ForEach(o => {if (Vector2.Distance(transform.position,o.transform.position) <= o.lightStrength) score += 1;});
+        if (BaseObject.ObjectsList.ContainsKey(ObjectTypes.FLOWER)) BaseObject.ObjectsList[ObjectTypes.FLOWER].ForEach(o => {if (Vector2.Distance(transform.position,o.transform.position) <= 1) score += 1;});
+        if (BaseObject.ObjectsList.ContainsKey(ObjectTypes.LAMP)) BaseObject.ObjectsList[ObjectTypes.LAMP].ForEach(o => {if (Vector2.Distance(transform.position,o.transform.position) <= o.lightStrength) score += 1;});
         return score;
     }
 }

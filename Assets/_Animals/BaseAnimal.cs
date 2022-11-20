@@ -25,6 +25,7 @@ public class BaseAnimal : MonoBehaviour
         PathNode startNode = new PathNode(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y));
         _GridPathNodes[new Vector2(transform.position.x, transform.position.y)] = startNode;
         var targetTile = GridManager.Instance.GetRandomPosition();
+        if (targetTile == null) return null;
         PathNode endNode = new PathNode(Mathf.FloorToInt(targetTile.transform.position.x), Mathf.FloorToInt(targetTile.transform.position.y));
         _GridPathNodes[new Vector2(targetTile.transform.position.x, targetTile.transform.position.y)] = endNode;
 

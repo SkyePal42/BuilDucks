@@ -30,26 +30,40 @@ public class AnimalManager : MonoBehaviour
                 var spawnedAnimal = Instantiate(u.AnimalPrefab);
                 var randomSpawnTile = GridManager.Instance.GetHeroSpawnTile();
                 randomSpawnTile.SetAnimal(spawnedAnimal);
-                
-                   _animalInstances.Add(spawnedAnimal.GetComponent<BaseAnimal>());
+
+                _animalInstances.Add(spawnedAnimal.GetComponent<BaseAnimal>());
             }
         });
-        
-        AnimalManager.Instance.MoveAbout();
-        GameManager.Instance.ChangeState(GameState.PlayerTurn);
+        AnimalManager.Instance.StartCoroutine("Move");
     }
 
-    public void MoveAbout()
+    private IEnumerator Move()
     {
-        /*
-        foreach (BaseAnimal animal in _animalInstances) {
-            Debug.Log(animal);
+        for (int i = 0; i < _animalInstances.Count; i++)
+        {
+            List<PathNode> shortestPath;
+            do
+            {
+                shortestPath = _animalInstances[i].FindPath();
+            } while (shortestPath != null && shortestPath.Count < 2);
+            if (shortestPath != null)
+            {
+                float lerpDuration = 1f;
+                float elapsed = 0;
+                Vector3 start =
+                _animalInstances[i].transform.position;
+                Vector3 end = new Vector3(shortestPath[1].x, shortestPath[1].y, 0);
+                while (elapsed < lerpDuration)
+                {
+                    elapsed += Time.deltaTime;
+                    _animalInstances[i].transform.position = Vector3.Lerp(start, end, elapsed / lerpDuration);
+                    yield return null;
+                }
+                GridManager.Instance.GetTileAtPosition(new Vector2(shortestPath[1].x, shortestPath[1].y)).SetAnimal(_animalInstances[i]);
+            }
         }
-        */
-
-        BaseAnimal duck = _animalInstances[0];
-        List<PathNode> shortestPath = duck.FindPath();
-        Debug.Log(shortestPath[1].x.ToString() +","+ shortestPath[1].y.ToString());
+        yield return new WaitForSeconds(1);
+        GameManager.Instance.ChangeState(GameState.PlayerTurn);
     }
 
 }

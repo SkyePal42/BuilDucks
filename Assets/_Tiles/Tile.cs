@@ -18,8 +18,8 @@ public class Tile : MonoBehaviour
 
     public BaseAnimal OccupiedAnimal;
     public BaseObject OccupiedObject;
-    public bool Walkable => _tileType == TileTypes.Grass && (OccupiedObject == null || OccupiedObject.walk);
-    public bool Swimmable => _tileType == TileTypes.Water && (OccupiedObject == null || OccupiedObject.swim);
+    public bool Walkable => _tileType == TileTypes.Grass && (OccupiedObject == null || OccupiedObject.walk) && OccupiedAnimal == null;
+    public bool Swimmable => _tileType == TileTypes.Water && (OccupiedObject == null || OccupiedObject.swim) && OccupiedAnimal == null;
 
     void OnMouseEnter()
     {
@@ -43,6 +43,8 @@ public class Tile : MonoBehaviour
             OccupiedObject = instance.GetComponent<BaseObject>();
             GameManager.Instance.ChangeState(GameState.ColleagueTurn);
             MenuManager.Instance.CloseSet();
+            MenuManager.Instance.DisableAll();
+            MenuManager.Instance._endGame.interactable = false;
         }
     }
 
