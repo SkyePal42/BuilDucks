@@ -30,6 +30,7 @@ public class MenuManager : MonoBehaviour
     {
         currentSet.SetActive(false);
         closeObjects.interactable = false;
+        SelectObject(null);
     }
 
     public void ShowTileInfo(Tile tile)

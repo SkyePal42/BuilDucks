@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectName: 
   cost: 0
-  look: -1
+  look: 2
   lightStrength: 0
   pollutionStrength: 0
   walk: 1
