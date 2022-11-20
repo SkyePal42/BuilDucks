@@ -14,7 +14,24 @@ public class MenuManager : MonoBehaviour
     private GameObject currentSet = null;
     [SerializeField] private Button closeObjects;
     public Button _endGame;
-    public void EndGame(int human, int nature) {
+    public GameObject ContentPanel;
+    public GameObject ListItemPrefab;
+    public void UpdateTasks()
+    {
+        foreach (BaseTask task in GameManager.Instance._CurrentTasks)
+        {
+            GameObject newTask = Instantiate(ListItemPrefab, ContentPanel.transform) as GameObject;
+            ListItemController controller = newTask.GetComponent<ListItemController>();
+            controller.Name.text = task.TaskName;
+            controller.Description.text = task.TaskDescription;
+            controller.Reward.text = task.TaskReward.ToString();
+            controller.Penalty.text = task.TaskPenalty.ToString();
+            newTask.transform.localScale = Vector3.one;
+            newTask.GetComponent<RectTransform>().sizeDelta = new Vector2(200,150);
+        }
+    }
+    public void EndGame(int human, int nature)
+    {
         foreach (var item in _EndGame)
         {
             item.SetActive(true);
@@ -28,13 +45,15 @@ public class MenuManager : MonoBehaviour
         UpdateMoney();
         SelectObject(null);
     }
-    public void DisableAll() {
+    public void DisableAll()
+    {
         for (int i = 0; i < _Options.Length; i++)
         {
             _Options[i].GetComponent<Button>().interactable = false;
         }
     }
-    public void EnableAll() {
+    public void EnableAll()
+    {
         for (int i = 0; i < _Options.Length; i++)
         {
             _Options[i].GetComponent<Button>().interactable = true;
