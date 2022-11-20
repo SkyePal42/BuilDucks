@@ -99,12 +99,32 @@ public class GameManager : MonoBehaviour
 
     private void Evaluation()
     {
-        int total = 0;
+        int humanTotal = 0;
         for (int i = 0; i < BaseObject.ObjectsList.Count(); i++)
         {
-            BaseObject.ObjectsList.ElementAt(i).Value.ForEach(o => total += o.Judge());
+            BaseObject.ObjectsList.ElementAt(i).Value.ForEach(o => humanTotal += o.Judge());
         }
-        MenuManager.Instance.EndGame(total,0);
+        int natureTotal = 0;
+        BaseAnimal sacrifice = AnimalManager.Instance._animalInstances[0];
+        for (int i = 0; i < GridManager.Instance._lakes.Count; i++)
+        {
+            for (int n = i + 1; n < GridManager.Instance._lakes.Count; n++)
+            {
+                if (i != n)
+                {
+                    GridManager.Instance.GetTileAtPosition(GridManager.Instance._lakes[i]).SetAnimal(sacrifice);
+                    var result = sacrifice.FindPath(GridManager.Instance._lakes[n]);
+                    natureTotal += (result == null ? -10 : 1);
+                    if (result != null) Debug.Log(result[result.Count - 1].PrintString()); else Debug.Log("Returned Null!");
+                }
+                else
+                {
+                    Debug.Log("Same Tile Lol");
+                }
+
+            }
+        }
+        MenuManager.Instance.EndGame(humanTotal, natureTotal);
     }
 
     public void EndGame() { MenuManager.Instance._endGame.interactable = false; ChangeState(GameState.EvaluationPhase); }

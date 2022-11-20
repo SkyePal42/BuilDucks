@@ -30,6 +30,11 @@ public class PathNode
         cameFromNode = null;
     }
 
+    public string PrintString() {
+        if (cameFromNode != null) return cameFromNode.PrintString() + "to" + x.ToString() + ":" + y.ToString();
+        return x.ToString() + ":" + y.ToString();
+    }
+
     public void CalculateFCost()
     {
         fCost = gCost + hCost;

@@ -9,7 +9,7 @@ public class AnimalManager : MonoBehaviour
     public static AnimalManager Instance;
 
     private List<ScriptableAnimal> _animals;
-    private List<BaseAnimal> _animalInstances = new List<BaseAnimal>();
+    public List<BaseAnimal> _animalInstances = new List<BaseAnimal>();
     public BaseAnimal SelectedHero;
 
     void Awake()
@@ -41,10 +41,11 @@ public class AnimalManager : MonoBehaviour
     {
         for (int i = 0; i < _animalInstances.Count; i++)
         {
-            List<PathNode> shortestPath;
+            List<PathNode> shortestPath = new List<PathNode>();
             do
             {
-                shortestPath = _animalInstances[i].FindPath();
+                var targetTile = GridManager.Instance.GetRandomPosition();
+                if (targetTile != null) shortestPath = _animalInstances[i].FindPath(new Vector2(targetTile.transform.position.x,targetTile.transform.position.y));
             } while (shortestPath != null && shortestPath.Count < 2);
             if (shortestPath != null)
             {

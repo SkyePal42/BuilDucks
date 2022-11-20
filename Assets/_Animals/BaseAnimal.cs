@@ -20,14 +20,13 @@ public class BaseAnimal : MonoBehaviour
     private List<PathNode> closedList;
     private Dictionary<Vector2, PathNode> _GridPathNodes = new Dictionary<Vector2, PathNode>();
 
-    public List<PathNode> FindPath()
+    public List<PathNode> FindPath(Vector2 targetVector)
     {
+        _GridPathNodes = new Dictionary<Vector2, PathNode>();
         PathNode startNode = new PathNode(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y));
         _GridPathNodes[new Vector2(transform.position.x, transform.position.y)] = startNode;
-        var targetTile = GridManager.Instance.GetRandomPosition();
-        if (targetTile == null) return null;
-        PathNode endNode = new PathNode(Mathf.FloorToInt(targetTile.transform.position.x), Mathf.FloorToInt(targetTile.transform.position.y));
-        _GridPathNodes[new Vector2(targetTile.transform.position.x, targetTile.transform.position.y)] = endNode;
+        PathNode endNode = new PathNode(Mathf.FloorToInt(targetVector.x), Mathf.FloorToInt(targetVector.y));
+        _GridPathNodes[new Vector2(targetVector.x, targetVector.y)] = endNode;
 
         if (startNode == null || endNode == null)
         {

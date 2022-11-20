@@ -15,6 +15,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Transform _cam;
 
     private Dictionary<Vector2, Tile> _tiles;
+    public List<Vector2> _lakes = new List<Vector2>();
 
     private int _numberOfEntrances;
     private Vector2[] _entrances;
@@ -57,12 +58,13 @@ public class GridManager : MonoBehaviour
 
                 if (waterCount > 0 && Random.value > 0.9)
                 {
-                    randomTile = _waterTile;
-                    waterCount -= 1;
+                    bool ok = true;
                     for (int i = 0; i < _entrances.Length; i++)
                     {
-                        if (Vector2.Distance(_entrances[i], new Vector2(x, y)) <= 1) { randomTile = _grassTile; waterCount += 1; break; }
+                        if (Vector2.Distance(_entrances[i], new Vector2(x, y)) <= 1) ok = false;
                     }
+                    if (ok) {randomTile = _waterTile;waterCount -= 1;_lakes.Add(new Vector2(x,y));}
+                    
                 }
 
                 SpawnTile(randomTile, x, y);
